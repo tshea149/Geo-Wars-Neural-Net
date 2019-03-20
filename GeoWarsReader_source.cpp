@@ -256,7 +256,7 @@ GameData getDataFromAddress(DWORD readAddress)
 	else
 	{
 		DWORD error = GetLastError();
-		std::cout << "Error reading memory.\nError Code: " << error << std::endl;
+		//std::cout << "Error reading memory.\nError Code: " << error << std::endl;
 		data.data_dw = DATA_READ_ERROR;
 		//system("pause");
 	}
