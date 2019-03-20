@@ -422,7 +422,7 @@ int32_t getEntityType(DWORD baseAddress)
 		return 11;
 
 	default:
-		std::cout << "Unknown enemy type encountered. Its behavior function address is " << std::hex << hexType << std::endl;
+		//std::cout << "Unknown enemy type encountered. Its behavior function address is " << std::hex << hexType << std::endl;
 		return -1; // unknown type
 	}
 }
