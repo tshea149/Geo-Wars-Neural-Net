@@ -6,6 +6,9 @@ Our original repository can be found here: https://github.com/CamWandfluh/Backpa
 
 You must own Geometry Wars: Retro Evolved in order to run this program. We do not own or have access to its source code.
 
+Run training: `python geowarslearner.py`
+Run trained AI: `python geowarsplayer.py`
+
 ---
 ## Requirements
 1. Geometry Wars: Retro Evolved. This application was made with the version from Steam. Other versions may or may not work, they are untested.
@@ -30,3 +33,6 @@ The following are decisions the game can make:
 * Shoot down
 
 Diagonal movements (and shooting) are possible, because outputs are toggled on/off.
+---
+You can set the number of genomes to evaluate in GeoWarsLearner.py. Just set n=(desired number of genomes).\
+Options for the neat-python neural network can be changed in config file.
