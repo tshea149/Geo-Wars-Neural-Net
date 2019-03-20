@@ -6,7 +6,7 @@ Our original repository can be found here: https://github.com/CamWandfluh/Backpa
 
 You must own Geometry Wars: Retro Evolved in order to run this program. We do not own or have access to its source code.
 
-Run training: `python geowarslearner.py`
+Run training: `python geowarslearner.py`  
 Run trained AI: `python geowarsplayer.py`
 
 ---
