@@ -183,8 +183,6 @@ bool getBaseAddress()
 // launches the game and fills in the handle to the process as well as the process id
 bool launchGame()
 {
-	/* REWRITE TIME */
-	/* because steam does not like me running an exe not through steam,  */
 	std::cout << "Launching game ..." << std::endl;
 
 	STARTUPINFO su_info;
@@ -216,13 +214,13 @@ bool launchGame()
 		return false;
 	}
 
-	delete[] exePath;				// delete the LPCWSTR we allocated space for in getGamePath()
+	delete[] exePath;		// delete the LPCWSTR we allocated space for in getGamePath()
 	CloseHandle(p_info.hThread);	// close, as it it un-needed for our purposes
 
 	gameProcess.handle = p_info.hProcess;
 	gameProcess.processID = p_info.dwProcessId;
 
-	// sleep for 2 seconds to allow the process to start before getting its address
+	// sleep for 2 seconds to allow the process to initialize before getting its address
 	Sleep(2000);
 
 	getBaseAddress();
