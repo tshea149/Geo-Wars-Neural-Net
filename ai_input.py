@@ -2,14 +2,13 @@ from time import sleep
 import ctypes
 
 # controls
+#	left mouse button down: stop shooting (should it be given this option? can be useful for killing green squares)
+#	left mouse button up: resume shooting
 #	W: move player up
 #	A: move player left
 #	S: move player down
 #	D: move player right
-#	Arrow Keys: shoot in held direction
-
-# dont allow inputs outside of the PLAYING game state
-# dont allow for the AI to pause the game (ESC key)
+#	Arrow Keys: shoot in direction
 
 # useful reference for properly using ctypes for this application:
 # https://stackoverflow.com/questions/11906925/python-simulate-keydown
@@ -201,3 +200,4 @@ def resetGame():
 	SendInputs(createKeyPress(DIR_RETURN))
 	sleep(menu_dur)
 	SendInputs(createKeyRelease(DIR_RETURN))
+

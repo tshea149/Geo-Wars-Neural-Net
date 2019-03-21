@@ -64,7 +64,6 @@
 #define RED_SHIP 0x004E12EC
 #define BLUE_CIRCLE 0x004e12a8 // these spawn when the red circles detonate
 #define BLUE_TRIANGLE 0x004e1194
-#define UNCATERGORIZED_ENEMY 0x004E1084 // occasionally appears, but unable to determine exactly what enemy this is
 
 // the number of iterations to search for in the enemy loop until its time to abandon ship if all enemies have not been found
 #define ENTITY_LIST_TIMEOUT 250
@@ -199,7 +198,7 @@ bool launchGame()
 	LPCWSTR exePath = getGamePath();
 
 	if (CreateProcess(
-		exePath,	// file path of the game's executable, read from the config file GWR.cfg
+		exePath,	// file path of the game's executable, read from the config file GMR.cfg
 		NULL,			// command line arguments
 		NULL,			// process handle cannot be inherited
 		NULL,			// thread handle cannot be inherited
@@ -222,9 +221,6 @@ bool launchGame()
 
 	gameProcess.handle = p_info.hProcess;
 	gameProcess.processID = p_info.dwProcessId;
-
-	std::cout << "Process ID : ";
-	std::cout << gameProcess.processID << std::endl;
 
 	// sleep for 2 seconds to allow the process to start before getting its address
 	Sleep(2000);
@@ -253,13 +249,13 @@ GameData getDataFromAddress(DWORD readAddress)
 	{
 		data.data_dw = buffer;
 	}
-	else
+	/*else
 	{
 		DWORD error = GetLastError();
 		//std::cout << "Error reading memory.\nError Code: " << error << std::endl;
 		data.data_dw = DATA_READ_ERROR;
 		//system("pause");
-	}
+	}*/
 	return data;
 }
 
@@ -287,13 +283,13 @@ bool writeDataToAddress(LPCVOID data, DWORD writeAddress, SIZE_T numBytesToWrite
 		if (numBytesToWrite != numBytesWritten)
 			return false;	// not all bytes were written
 	}
-	else
+	/*else
 	{
 		DWORD error = GetLastError();
-		std::cout << "Error writing memory.\nError Code: " << error << std::endl;
+		//std::cout << "Error writing memory.\nError Code: " << error << std::endl;
 		//system("pause");
 		return false;
-	}
+	}*/
 	return true;
 }
 
@@ -418,11 +414,7 @@ int32_t getEntityType(DWORD baseAddress)
 	case BLUE_TRIANGLE:
 		return 10;
 
-	case UNCATERGORIZED_ENEMY:
-		return 11;
-
 	default:
-		//std::cout << "Unknown enemy type encountered. Its behavior function address is " << std::hex << hexType << std::endl;
 		return -1; // unknown type
 	}
 }

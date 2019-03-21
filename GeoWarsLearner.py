@@ -1,10 +1,8 @@
 import sys, enum
-import pickle
 import neat
-import os
-#import NEAT.visualize
+import pickle
 from time import sleep
-from NEAT.geowars import GeoWars
+from geowars import GeoWars
 import GeoWarsReader as GWR
 
 class GameState(enum.Enum):
@@ -23,15 +21,13 @@ def evolutionary_driver():
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
-    p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(5))
 
     # Run until we achive n.
-    winner = p.run(eval_genomes, n=100)
-
-    # Display the winning genome.
-    print('\nBest genome:\n{!s}'.format(winner))
+    try: 
+        winner = p.run(eval_genomes, n=100)
+    except neat.population.CompleteExtinctionException:
+        print("Total Extinction.")
+        quit();
 
     # saving winner to pkl file
     with open('winner-feedforward', 'wb') as f:
@@ -42,6 +38,7 @@ def eval_genomes(genomes, config):
 
     # Play game and get results
     genome_id, genomes = zip(*genomes)
+
     learner = GeoWars(genomes, config)
     learner.play()
     results = learner.results
@@ -52,7 +49,7 @@ def eval_genomes(genomes, config):
         timeSurvived = result['timeSurvived']
         genome = result['genome']
 
-        fitness = score + timeSurvived
+        fitness = score / timeSurvived
         genome.fitness = -1 if fitness < 1 else fitness
         print('Genome fitness', genome.fitness)
 
@@ -64,9 +61,9 @@ def main():
 	    exit()
 
     while GWR.getGameState() == GameState.MAIN_MENU.value:
-	    sleep(0.1)
+	    sleep(0.1) # sleep(seconds)
 
-    # game started, wait to allow the game to populate its data before reading
+    # game started, wait half a second to allow the game to populate its data before reading
     sleep(1)
     evolutionary_driver()
 
